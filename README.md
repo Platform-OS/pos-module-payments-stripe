@@ -39,6 +39,14 @@ Code examples
             <button type="submit" id="checkout-button">Checkout</button>
           </form>
         </section>
+        
+## TODO
+ 
+- store api calls in gateway_requests, (checkout_session_create, incomming webhook)
+- run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should use migration?
+- use new validations from `core` module
+- implement things required by `payments` module
+- test whole payment flow
 
 ## Versioning
 
