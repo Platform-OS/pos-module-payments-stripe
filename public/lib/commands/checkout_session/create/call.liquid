@@ -1,0 +1,9 @@
+{% liquid
+  function object = 'modules/payments_stripe/commands/checkout_session/create/build', object: object
+  function object = 'modules/payments_stripe/commands/checkout_session/create/validate', object: object
+  if object.valid
+    function object = 'modules/payments_stripe/commands/checkout_session/create/save', object: object
+    function _event = 'lib/commands/events/create', type: 'stripe_payment_completed', actor_id: current_user.id, object_id: object.id
+  endif
+  return object
+%}

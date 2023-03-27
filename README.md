@@ -1,10 +1,10 @@
-# Module name
+# Payments Stripe
 
-Module description
+Supports Stripe Checkout. Name of the gateway: `stripe`
 
 ## Usage
 
-How to use the module
+Set constant for secret key.
 
 ## Hooks
 

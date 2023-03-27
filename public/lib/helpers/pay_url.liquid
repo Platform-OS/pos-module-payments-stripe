@@ -1,0 +1,26 @@
+{% parse_json data %}
+{
+ "payment_method_types": ["card"],
+ "line_items": [
+      {
+        "price_data": {
+          "product_data": { "name": "example name" },
+          "unit_amount": 10000,
+          "currency": "USD"
+        },
+        "quantity": 1
+      }
+  ],
+  "client_reference_id": "12345",
+  "mode": "payment",
+  "success_url": "https://{{context.location.host}}/orders/success/",
+  "cancel_url": "https://{{context.location.host}}/orders/cancel/"
+}
+{% endparse_json %}
+{% liquid
+  # transaction: transaction, params: params
+  function checkout_session = 'modules/payments_stripe/commands/stripe_checkout/create', object: data
+  log checkout_session, type: 'checkout_session'
+
+  return checkout_session.url
+%}
