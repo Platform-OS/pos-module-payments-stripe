@@ -1,0 +1,35 @@
+---
+slug: payments/stripe/checkout_session/:transaction_id
+method: post
+---
+{% liquid
+  function transaction = 'modules/payments/queries/transactions/find', id: context.params.transaction_id
+  # TODO:
+  # - allow to pass line_items data
+  # - allow to pass success and cancel urls
+%}
+{% parse_json data %}
+{
+ "payment_method_types": ["card"],
+ "line_items": [
+      {
+        "price_data": {
+          "product_data": { "name": "example name" },
+          "unit_amount": 10000,
+          "currency": "USD"
+        },
+        "quantity": 1
+      }
+  ],
+  "client_reference_id": "{{transaction.id}}",
+  "mode": "payment",
+  "success_url": "https://{{context.location.host}}/orders/success/",
+  "cancel_url": "https://{{context.location.host}}/orders/cancel/"
+}
+{% endparse_json %}
+
+{% liquid
+  function checkout_session = 'modules/payments_stripe/commands/stripe_checkout/create', object: data
+
+  redirect_to checkout_session.url, status: 303
+%}
