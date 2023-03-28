@@ -5,6 +5,7 @@ Supports Stripe Checkout. Name of the gateway: `stripe`
 ## Usage
 
 Set constant for secret key - `stripe_sk_key`. Test key: `sk_test_51MqAguLX9pf1NFC3NmfWj2741sDHQcWq7GJzfDrS8ozr6nyAMIgXXDJ37YiiHlTjCFvj1nvjqQ3odVKaMevWlKMB00YMxvMnZR`
+Setup webhooks by running `function res = 'modules/payments_stripe/commands/setup'`
 
 ## Hooks
 
@@ -43,7 +44,7 @@ Code examples
 ## TODO
  
 - store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
-- run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
+- # run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
 - use new validations from `core` module
 - implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
 - test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.

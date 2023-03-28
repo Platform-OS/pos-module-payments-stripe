@@ -1,0 +1,12 @@
+{% liquid
+  if context.constants.stripe_sk_key
+    function res = 'modules/payments_stripe/commands/webhook_endpoints/create', stripe_event: 'checkout.session.completed', path: '/payments/stripe/checkout_session_completed', connect: false, host: context.location.host
+    if res.valid != true
+      log res, type: 'ERROR: modules/payments_stripe failed to setup webhook'
+    endif
+    return res.valid
+  else
+    log null, type: 'ERROR: modules/payments_stripe you have to set `stripe_sk_key` constant'
+    return false
+  endif
+%}

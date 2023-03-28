@@ -13,7 +13,6 @@
     assign data = data | add_hash_key: "indempotency_key", indempotency_key
   endif
   graphql response = 'modules/payments_stripe/api_call', template: 'modules/payments_stripe/webhook_create', data: data
-  log response, type: 'webhooks/create api_call'
   assign response = response | dig: 'api_call', 'response'
   return response
 %}

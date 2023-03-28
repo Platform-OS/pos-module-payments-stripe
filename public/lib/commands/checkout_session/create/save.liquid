@@ -1,14 +1,7 @@
 {% liquid
-  graphql r = 'modules/payments_stripe/checkout_session_create', args: object
-
-  if r.errors
-    log r.errors, type: 'errors.graphql.invalid'
-    hash_assign object['errors'] = r.errors
-    hash_assign object['valid'] = false
-  else
-    assign object = r.model
-    hash_assign object['valid'] = true
-  endif
+  graphql r = 'modules/payments_stripe/checkout_sessions/create', args: object
+  assign object = r['record']
+  hash_assign object['valid'] = true
 
   return object
 %}

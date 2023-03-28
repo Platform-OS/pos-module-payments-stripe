@@ -1,8 +1,6 @@
 {% liquid
   assign body = response.body | parse_json
 %}
-{% comment %}TODO: use standard errors{% endcomment %}
-{% log body, type: "RESPONSE BODY........" %}
 {% parse_json webhook %}
   {%- if response.status == 200 -%}
     {

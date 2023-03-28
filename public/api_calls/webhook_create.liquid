@@ -24,7 +24,6 @@ request_headers: >
 {%- for var in data -%}
   {%- if var[1] != blank -%}
     {%- if var[0] == 'enabled_events' and var[1].size > 0 -%}
-      {% log var[1], type: "ENABLED EVENTS" %}
       {% assign event_hash = var[1] | to_hash %}
       {% for event in event_hash %}
         {%- capture pair %}enabled_events[{{ event[0] }}]={{ event[1] | url_encode }}{% endcapture -%}
@@ -36,5 +35,4 @@ request_headers: >
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
-{% log request_params, type: "REQUEST PARAMS.........." %}
 {{ request_params | join: '&' | html_safe }}
