@@ -3,7 +3,9 @@
   function object = 'modules/payments_stripe/commands/checkout_session/create/validate', object: object
   if object.valid
     function object = 'modules/payments_stripe/commands/checkout_session/create/save', object: object
-    function _event = 'lib/commands/events/create', type: 'stripe_payment_completed', actor_id: current_user.id, object_id: object.id
+    function transaction = 'modules/payments/queries/transactions/find', id: object['external_id']
+    assign input = null | hash_merge: payment_status: object.status
+    function object = 'modules/payments/commands/transactions/update_status', object: input, transaction: transaction
   endif
   return object
 %}

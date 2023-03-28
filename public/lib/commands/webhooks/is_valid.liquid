@@ -1,14 +1,13 @@
 {% liquid
   assign webhook_listen_url = "https://" | append: context.location.host | append: webhook_path
-  graphql g = 'modules/payments_stripe/webhook_endpoints', livemode: context.exports.payment.livemode, url: webhook_listen_url
+  graphql g = 'modules/payments_stripe/webhook_endpoints/search', livemode: context.exports.payment.livemode, url: webhook_listen_url
   assign last_webhook_config = g.webhook_endpoints.results.last
   if last_webhook_config.id == blank
     if context.constants.DEBUG == "true"
-      log "webhook_endpoint NOT FOUND", type: "ERROR"
+      log "webhook_endpoint NOT FOUND", type: "ERROR: modules/payments_stripe"
     endif
 
-    assign no = false
-    return no
+    return false
   endif
 
   assign stripe_signature = context.headers.HTTP_STRIPE_SIGNATURE | split: ","
@@ -25,10 +24,8 @@
     log signed_payload_hmac, type: "DEBUG signed_payload_hmac"
     log secret, type: "DEBUG secret"
     log g, type: 'DEBUG g'
-    assign no = false
-    return no
+    return false
   else
-    assign yes = true
-    return yes
+    return true
   endif
 %}
