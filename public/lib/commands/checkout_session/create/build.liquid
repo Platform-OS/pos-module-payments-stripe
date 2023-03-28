@@ -3,6 +3,8 @@
   assign data = null | hash_merge: data: data_json, external_id: object.client_reference_id
   if object.status == 'complete' and object.payment_status == 'paid'
     hash_assign data['status'] = 'success'
+  else
+    hash_assign data['status'] = 'failed'
   endif
   return data
 %}

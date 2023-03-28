@@ -2,6 +2,11 @@
 
 Supports Stripe Checkout. Name of the gateway: `stripe`
 
+
+## Installation
+
+        git clone git@github.com:Platform-OS/pos-module-payments-stripe.git modules/payments_stripe
+
 ## Usage
 
 Set constant for secret key - `stripe_sk_key`. Test key: `sk_test_51MqAguLX9pf1NFC3NmfWj2741sDHQcWq7GJzfDrS8ozr6nyAMIgXXDJ37YiiHlTjCFvj1nvjqQ3odVKaMevWlKMB00YMxvMnZR`
