@@ -1,5 +1,14 @@
 {%- assign request_params = '' | split: "|" -%}
 {%- for var in data -%}
+  {% liquid
+    log var, type: 'var'
+    assign typ = var | type_of
+    log typ, type: 'type'
+    assign tajp = var[0] | type_of
+    log typ, type: 'type var[0]'
+    assign tajp = var[1] | type_of
+    log typ, type: 'type var[1]'
+  %}
   {%- capture pair %}{{ var[0] }}={{ var[1] | url_encode }}{% endcapture -%}
   {% liquid
     assign query = '{}' | parse_json
