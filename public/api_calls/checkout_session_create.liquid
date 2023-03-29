@@ -19,6 +19,7 @@ request_headers: >
   {% endif %}
 ---
 {% liquid
+  log data, type: 'data in api'
   # function encoded = 'modules/payments_stripe/helpers/json_to_encoded', data: data
   # log encoded, type: 'encoded'
   echo data
