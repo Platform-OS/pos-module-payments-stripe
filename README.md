@@ -59,7 +59,7 @@ List of hooks provided and/or implemented by the module
 
 ## TODO
 
-- [x] run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
+- [x] run webhook setup `function res = 'modules/payments_stripe/commands/webhook_endpoints/create', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
 - [x] use new validations from `core` module
 - [ ] find solution for redirect url
 - [ ] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
