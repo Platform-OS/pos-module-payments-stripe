@@ -1,6 +1,8 @@
 {% liquid
+  # TODO: need to store this request in gateway_requests
   graphql response = 'modules/payments_stripe/api_call', template: "modules/payments_stripe/checkout_session_create", data: object
-  assign checkout_session = response.api_call.response.body | parse_json
 
-  return checkout_session
+  function object = 'modules/payments_stripe/commands/stripe_checkout/create/map_response', object: response.api_call.response
+
+  return object
 %}
