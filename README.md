@@ -2,7 +2,6 @@
 
 Supports Stripe Checkout. Name of the gateway: `stripe`
 
-
 ## Installation
 
         git clone git@github.com:Platform-OS/pos-module-payments-stripe.git modules/payments_stripe
@@ -19,7 +18,7 @@ List of hooks provided and/or implemented by the module
 ## Examples
 
 Code examples
-        
+
         {% liquid
           assign ids = '["1", "2"]' | parse_json
           assign object = null | hash_merge: gateway: 'stripe', payable_ids: ids, amount_cents: 1001, currency: 'USD'
@@ -31,29 +30,33 @@ Code examples
           echo url
           echo '------------------'
         %}
-        <a href="{{ url  }}">Pay</a>
-        <script src="https://js.stripe.com/v3/"></script>
         <section>
-          <div class="product">
-            <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
-            <div class="description">
-              <h3>Stubborn Attachments</h3>
-              <h5>$20.00</h5>
+          <form action="{{ url }}" method="POST">
+            <div class="product">
+              <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+              <div class="description">
+                <h3>Stubborn Attachments</h3>
+                <h5>$100.60</h5>
+              </div>
+              <input type="number" min="1" value="1" name="line_items[][quantity]" />
+              <input type="hidden" name="line_items[][price_data][product_data][name]" value="Stubborn Attachments" />
+              <input type="hidden" name="line_items[][price_data][unit_amount]" value="10060" />
+              <input type="hidden" name="line_items[][price_data][currency]" value="USD" />
             </div>
-          </div>
-          <form action="{{url}}" method="POST">
+            <input type="hidden" name="success_url" value="https://{{context.location.host}}/success" />
+            <input type="hidden" name="cancel_url" value="https://{{context.location.host}}/cancel" />
             <button type="submit" id="checkout-button">Checkout</button>
           </form>
-        </section>
-        
+      </section>
+
 ## TODO
- 
-- # implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
-- # run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
-- store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
-- use new validations from `core` module
-- handle failed or expired payment from stripe?
-- test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
+
+[] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
+[] run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
+[] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
+[] use new validations from `core` module
+[] handle failed or expired payment from stripe?
+[] test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
 
 ## Versioning
 
