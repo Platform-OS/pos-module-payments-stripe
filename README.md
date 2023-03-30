@@ -27,40 +27,65 @@ List of hooks provided and/or implemented by the module
 
 ### Code examples
 
-``` liquid
-{% parse_json line_items %}
-  [{
-    "price_data": {
-      "currency": "usd",
-      "product_data": {
-        "name": "T-shirt"
-      },
-      "unit_amount": 2000
-    },
-    "quantity": 1
-  }]
-{% endparse_json %}
+The form.
+
+```
+<section>
+  <form action="/pay" method="POST">
+    <div class="product">
+      <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+      <div class="description">
+        <h3>Stubborn Attachments</h3>
+        <h5>$100.60</h5>
+      </div>
+      <input type="number" min="1" value="1" name="line_items[][quantity]" />
+      <input type="hidden" name="line_items[][price_data][product_data][name]" value="Stubborn Attachments" />
+      <input type="hidden" name="line_items[][price_data][unit_amount]" value="10060" />
+      <input type="hidden" name="line_items[][price_data][currency]" value="USD" />
+    </div>
+    <button type="submit" id="checkout-button">Checkout</button>
+  </form>
+</section>
+```
+
+`pay.liquid`
+
+```liquid
+---
+method: post
+---
 {% liquid
-  if context.params.stripe_pay
-    assign ids = '["1", "2"]' | parse_json
-    assign object = null | hash_merge: gateway: 'stripe', payable_ids: ids, amount_cents: 1001, currency: 'USD'
-    function object = 'modules/payments/commands/transactions/create', object: object
-    echo object
-    echo '------------------'
+  assign total = 0
+  for item in params.line_items
+    assign line_price = item.price_data.unit_amount | times: item.quantity
+    assign total = total | plus: line_price
+  endfor
 
-    assign success_url = 'https://' | append: context.location.host | append: '/success'
-    assign failed_url = 'https://' | append: context.location.host | append: '/failed'
-    assign stripe_params = null | hash_merge: success_url: success_url, cancel_url: failed_url, line_items: line_items
-    function url = 'modules/payments/helpers/pay_url', transaction: object, gateway_params: stripe_params
-    log url, type: 'url'
 
-    redirect_to url, status: 303
-  endif
+  assign ids = '["1", "2"]' | parse_json
+  assign object = null | hash_merge: gateway: 'stripe', payable_ids: ids, amount_cents: total, currency: 'USD'
+  function object = 'modules/payments/commands/transactions/create', object: object
+
+  assign success_url = 'https://' | append: context.location.host | append: '/success/' | append: object.id
+  assign failed_url = 'https://' | append: context.location.host | append: '/cancel/' | append: object.id
+  assign stripe_params = null | hash_merge: success_url: success_url, cancel_url: failed_url, line_items: params.line_items
+  function url = 'modules/payments/helpers/pay_url', transaction: object, gateway_params: stripe_params
+
+  redirect_to url, status: 303
 %}
-<form action="/debug?stripe_pay=1" method="GET">
-  <input type='hidden' name="stripe_pay" value="1">
-  <button type="submit" id="checkout-button">Checkout</button>
-</form>
+```
+
+`success.liquid`
+
+```liquid
+---
+slug: success/:transaction_id
+---
+{% liquid
+  function transaction = 'modules/payments/queries/transactions/find', id: context.params.transaction_id
+%}
+<h1>Your payment (#{{ transaction.id }}) was successful</h1>
+<p>You payed {{ transaction.amount_cents |  pricify_cents }}.</p>
 ```
 
 ## TODO
