@@ -1,6 +1,6 @@
 {% liquid
   function object = 'modules/payments_stripe/commands/checkout_session/create/build', object: object
-  function object = 'modules/payments_stripe/commands/checkout_session/create/validate', object: object
+  function object = 'modules/payments_stripe/commands/checkout_session/create/check', object: object
   if object.valid
     function object = 'modules/payments_stripe/commands/checkout_session/create/save', object: object
     function transaction = 'modules/payments/queries/transactions/find', id: object['external_id']
