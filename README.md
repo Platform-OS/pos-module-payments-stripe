@@ -17,7 +17,14 @@ List of hooks provided and/or implemented by the module
 
 ## Examples
 
-Code examples
+### Stripe test card
+
+- Card number: `4242 4242 4242 4242.`
+- Use a valid future date, such as `12/34`.
+- Use any three-digit CVC (four digits for American Express cards).
+- Use any value you like for other form fields.
+
+### Code examples
 
         {% liquid
           assign ids = '["1", "2"]' | parse_json
@@ -51,12 +58,12 @@ Code examples
 
 ## TODO
 
-[] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
-[] run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
-[] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
-[] use new validations from `core` module
-[] handle failed or expired payment from stripe?
-[] test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
+- [ ] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
+- [ ] run webhook setup `function res = 'modules/stripe/lib/webhook_endpoints/create/call', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
+- [ ] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
+- [ ] use new validations from `core` module
+- [ ] handle failed or expired payment from stripe?
+- [ ] test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
 
 ## Versioning
 
