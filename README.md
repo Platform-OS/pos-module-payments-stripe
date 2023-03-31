@@ -94,6 +94,7 @@ slug: success/:transaction_id
 - [x] use new validations from `core` module
 - [x] find solution for redirect url
 - [ ] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
+- [ ] add status to core
 - [ ] handle failed or expired payment from stripe?
 - [ ] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
 - [ ] test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
