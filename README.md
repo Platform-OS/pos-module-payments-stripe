@@ -93,11 +93,12 @@ slug: success/:transaction_id
 - [x] run webhook setup `function res = 'modules/payments_stripe/commands/webhook_endpoints/create', stripe_event: 'checkout.session.completed', path: '/webhooks/checkout_session_completed', connect: false, host: context.location.host`, maybe we should put this code into migration so it will fail until you setup correct stripe key?
 - [x] use new validations from `core` module
 - [x] find solution for redirect url
-- [ ] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
-- [ ] add status to core
+- [x] implement things required by `payments` module, especially `modules/payments/commands/transactions/udpate_status`
+- [x] add status to core
 - [ ] handle failed or expired payment from stripe?
-- [ ] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
+- [x] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
 - [ ] test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
+- [ ] refactor: create generic api call tempalate for stripe module and use it in checkout_session create and webhook create
 
 ## Versioning
 
