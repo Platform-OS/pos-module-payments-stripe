@@ -1,8 +1,7 @@
 {% liquid
-  # TODO: need to store this request in gateway_requests
-  graphql response = 'modules/payments_stripe/api_call', template: "modules/payments_stripe/checkout_session_create", data: object
-
-  function object = 'modules/payments_stripe/commands/stripe_checkout/create/map_response', object: response.api_call.response
+  function object = 'modules/payments_stripe/commands/stripe_checkout/create/build', object: object, transaction: transaction
+  function object = 'modules/payments/commands/gateway_requests/send', object: object, name: 'payments_stripe_checkout_create', external_id: transaction.id, template: "modules/payments_stripe/checkout_session_create"
+  function object = 'modules/payments_stripe/commands/stripe_checkout/create/map_response', object: object
 
   return object
 %}

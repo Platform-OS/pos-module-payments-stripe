@@ -1,24 +1,14 @@
 ---
 name: checkout_session_create
-to: https://api.stripe.com/v1/checkout/sessions
-format: https
-request_type: Post
-callback: >
-  {% liquid
-    assign response_data = response.body | to_hash
-    if response_data.error
-      log response_data.error, type: 'modules/payments_stripe/checkout_session_create'
-    endif
-  %}
+to: "{{ data.to }}"
+request_type: "{{ data.request_type }}"
 request_headers: >
-  {% if data %}
-    {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": "Bearer {{ context.constants.stripe_sk_key }}"
-    }
-  {% endif %}
+  {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Authorization": "Bearer {{ context.constants.stripe_sk_key }}"
+  }
 ---
 {% liquid
-  function encoded = 'modules/payments_stripe/helpers/json_to_encoded', data: data
+  assign encoded = data.payload | www_form_encode_rc
   echo encoded
 %}

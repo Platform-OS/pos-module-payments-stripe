@@ -1,15 +1,5 @@
-{% parse_json data %}
-{
- "payment_method_types": ["card"],
-  "client_reference_id": "{{ transaction.id }}",
-  "mode": "payment"
-}
-{% endparse_json %}
-
 {% liquid
-  assign data = null | hash_merge: gateway_params | hash_merge: data
-
-  function object = 'modules/payments_stripe/commands/stripe_checkout/create', object: data
+  function object = 'modules/payments_stripe/commands/stripe_checkout/create', object: gateway_params, transaction: transaction
   if object.valid
     return object.url
   else

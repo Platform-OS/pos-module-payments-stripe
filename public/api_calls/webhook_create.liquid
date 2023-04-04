@@ -19,6 +19,7 @@ request_headers: >
     }
   {% endif %}
 ---
+{%- # TODO: use www_form_encode to convert params to proper format -%}
 {%- assign allowed_params = 'url,connect,disabled' | split: ',' -%}
 {%- assign request_params = '' | split: "|" -%}
 {%- for var in data -%}
