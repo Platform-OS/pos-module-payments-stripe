@@ -2,7 +2,7 @@
   function object = 'modules/payments_stripe/commands/webhooks/checkout_session_completed/build', post_params: post_params
   function object = 'modules/payments_stripe/commands/webhooks/checkout_session_completed/check', object: object
   if object.valid
-    function object = 'modules/payments_stripe/commands/checkout_session/create/call', object: object, current_user: current_user
+    function object = 'modules/payments_stripe/commands/checkout_session/create/call', object: object, requester: requester
   endif
 
   return object

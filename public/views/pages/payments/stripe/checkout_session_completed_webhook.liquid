@@ -9,7 +9,12 @@ layout: null
     break
   endunless
 
-  function object = 'modules/payments_stripe/commands/webhooks/checkout_session_completed/call', post_params: context.post_params, current_user: context.current_user
+  assign requester = context.current_user
+  unless requester
+    assign requester = null | hash_merge: id: 'stipe_webhook_request'
+  endunless
+
+  function object = 'modules/payments_stripe/commands/webhooks/checkout_session_completed/call', post_params: context.post_params, requester: requester
   if object.valid
     echo object
   else
