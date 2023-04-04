@@ -1,9 +1,9 @@
 {% liquid
   assign data = '{}' | parse_json
-  assign checkout_session = response.api_call.response.body | parse_json
-  if object.body
-    assign response = object.body | parse_json
+  if object.response_body
+    assign response = object.response_body | parse_json
     if response.error
+      hash_assign data['errors'] = response.error
       hash_assign data['valid'] = false
     else
       assign data = data | hash_merge: id: response.id, url: response.url

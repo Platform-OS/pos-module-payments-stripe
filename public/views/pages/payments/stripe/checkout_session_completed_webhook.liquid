@@ -4,21 +4,23 @@ layout: null
 ---
 {% liquid
   function valid_webhook = 'modules/payments_stripe/commands/webhooks/is_valid', webhook_path: '/payments/stripe/checkout_session_completed_webhook', context: context
-  unless valid_webhook
+  if valid_webhook
+    assign requester = context.current_user
+    unless requester
+      assign requester = null | hash_merge: id: 'stripe_webhook_request'
+    endunless
+
+    function object = 'modules/payments_stripe/commands/checkout_session/complete', object: context.post_params, requester: requester, request_url: context.location.url
+    if object.valid
+      echo object
+    else
+      log object, type: 'ERROR: payments_stripe/checkout_session_completed_webhook object'
+      response_status 500
+      echo object
+    endif
+  else
+    log context, type: 'ERROR: payments_stripe/checkout_session_completed_webhook invalid webhook'
     response_status 403
     break
-  endunless
-
-  assign requester = context.current_user
-  unless requester
-    assign requester = null | hash_merge: id: 'stipe_webhook_request'
-  endunless
-
-  function object = 'modules/payments_stripe/commands/webhooks/checkout_session_completed/call', post_params: context.post_params, requester: requester
-  if object.valid
-    echo object
-  else
-    response_status 500
-    echo object
   endif
 %}
