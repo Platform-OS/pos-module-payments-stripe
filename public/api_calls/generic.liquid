@@ -4,6 +4,9 @@ to: "{{ data.to }}"
 request_type: "{{ data.request_type }}"
 request_headers: >
   {
+    {%- if data.indempotency_key -%}
+      "Idempotency-Key": "{{ data.indempotency_key }}",
+    {%- endif -%}
     "Content-Type": "application/x-www-form-urlencoded",
     "Authorization": "Bearer {{ context.constants.stripe_sk_key }}"
   }
