@@ -98,7 +98,7 @@ slug: success/:transaction_id
 - [ ] handle failed or expired payment from stripe?
 - [x] store api calls in gateway_requests, (checkout_session_create, incomming webhook). Maybe we don't need `schema/checkout_session` at all?
 - [ ] test whole payment flow, do the payment with test card and wait for the webhook that will update transaction status.
-- [ ] refactor: create generic api call tempalate for stripe module and use it in checkout_session create and webhook create
+- [x] refactor: create generic api call tempalate for stripe module and use it in checkout_session create and webhook create
 
 ## Versioning
 
