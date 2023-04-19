@@ -1,0 +1,11 @@
+{% liquid
+  assign indempotency_key = 20 | random_string
+  assign to = 'https://api.stripe.com/v1/webhook_endpoints/' | append: gateway_id
+
+  assign data = null | hash_merge: to: to, request_type: 'Delete', indempotency_key: indempotency_key
+
+  graphql response = 'modules/payments_stripe/api_call', template: 'modules/payments_stripe/generic', data: data
+  assign response = response | dig: 'api_call', 'response'
+
+  return response
+%}
