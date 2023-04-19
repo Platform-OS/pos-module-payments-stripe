@@ -15,11 +15,15 @@ request_headers: >
     {%- if data.indempotency_key -%}
       "Idempotency-Key": "{{ data.indempotency_key }}",
     {%- endif -%}
-    "Content-Type": "application/x-www-form-urlencoded",
+    {%- if data.payload -%}
+      "Content-Type": "application/x-www-form-urlencoded",
+    {%- endif -%}
     "Authorization": "Bearer {{ context.constants.stripe_sk_key }}"
   }
 ---
 {% liquid
-  assign encoded = data.payload | www_form_encode_rc
-  echo encoded
+  if data.payload
+    assign encoded = data.payload | www_form_encode_rc
+    echo encoded
+  endif
 %}
