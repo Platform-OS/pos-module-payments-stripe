@@ -9,9 +9,7 @@
   function response = 'modules/payments_stripe/commands/stripe_webhook/delete', gateway_id: gateway_id
   function object = 'modules/payments_stripe/commands/webhook_endpoints/delete/build', response: response
   if object.valid
-    graphql r = 'modules/payments_stripe/webhook_endpoints/delete', args: object
-    assign object = r['records_delete_all']
-    hash_assign object['valid'] = true
+    function object = 'modules/core/commands/execute', mutation_name: 'modules/payments_stripe/webhook_endpoints/delete' object: object, selection: 'records_delete_all'
   else
     log object, type: 'ERROR: modules/payments_stripe webhook_endpoints/delete'
   endif
