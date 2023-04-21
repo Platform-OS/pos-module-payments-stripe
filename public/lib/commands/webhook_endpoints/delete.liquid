@@ -8,7 +8,7 @@
 {% liquid
   function response = 'modules/payments_stripe/commands/stripe_webhook/delete', gateway_id: gateway_id
   if response.valid
-    function object = 'modules/payments_stripe/commands/webhook_endpoints/delete/build', response: response
+    function object = 'modules/payments_stripe/commands/webhook_endpoints/delete/map_response', response: response
     if object.valid
       function object = 'modules/core/commands/execute', mutation_name: 'modules/payments_stripe/webhook_endpoints/delete' object: object, selection: 'records_delete_all'
     else
