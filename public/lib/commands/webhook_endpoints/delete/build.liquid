@@ -6,7 +6,7 @@
     {
       {%- if body.error -%}
         "errors": [
-          {"message": "{{ body.error.message }}"}
+          { "message": {{ body.error.message | json }} }
         ],
       {%- endif -%}
       "gateway_id": "{{ body.id }}",
@@ -14,7 +14,9 @@
     }
   {%- else -%}
     {
-      "errors": {{ body.error.message | json }},
+      "errors": [
+        { "message": {{ body.error.message | json }} }
+      ],
       "valid": false
     }
   {%- endif -%}
