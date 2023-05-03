@@ -8,7 +8,8 @@ Supports Stripe Checkout. Name of the gateway: `stripe`
 
 ## Usage
 
-Set constant for secret key - `stripe_sk_key`. Test key: `sk_test_51MqAguLX9pf1NFC3NmfWj2741sDHQcWq7GJzfDrS8ozr6nyAMIgXXDJ37YiiHlTjCFvj1nvjqQ3odVKaMevWlKMB00YMxvMnZR`
+Setup `stripe_sk_key` variable with your stripe secret key:
+` function _ = 'modules/core/lib/commands/variable/set', name: 'stripe_sk_key', value: 'sk_test_51MqAguLX9pf1NFC3NmfWj2741sDHQcWq7GJzfDrS8ozr6nyAMIgXXDJ37YiiHlTjCFvj1nvjqQ3odVKaMevWlKMB00YMxvMnZR'`
 
 Setup webhooks by running `function res = 'modules/payments_stripe/commands/setup'`
 
