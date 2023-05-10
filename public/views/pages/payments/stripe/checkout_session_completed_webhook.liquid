@@ -14,8 +14,8 @@ layout: null
     if object.valid
       echo object
     else
-      log object, type: 'ERROR: payments_stripe/checkout_session_completed_webhook object'
-      response_status 500
+      log object, type: 'WARNING: payments_stripe/checkout_session_completed_webhook object'
+      response_status 202
       echo object
     endif
   else
