@@ -20,7 +20,7 @@ layout: null
       # but it was not relevant in the current instance.
 
       assign log_level = 'WARNING'
-      if object.errors.id contains 'cannot be blank'
+      if object.errors.transaction_id contains 'not exist'
         response_status 202
       else
         assign log_level = 'ERROR'
