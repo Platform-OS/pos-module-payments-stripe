@@ -1,5 +1,10 @@
 {% liquid
   function object = 'modules/payments_stripe/commands/checkout_session/complete/build', object: object
+  function object = 'modules/payments_stripe/commands/checkout_session/complete/check', object: object
+  unless object.valid
+    return object
+  endunless
+
   function object = 'modules/payments/commands/gateway_requests/receive', object: object.data.object, name: object.type, external_id: object.data.object.client_reference_id, request_url: request_url
   if object.valid
     function object = 'modules/payments_stripe/commands/checkout_session/complete/map_request', object: object
