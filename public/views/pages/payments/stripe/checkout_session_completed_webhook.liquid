@@ -14,8 +14,23 @@ layout: null
     if object.valid
       echo object
     else
-      log object, type: 'ERROR: payments_stripe/checkout_session_completed_webhook object'
-      response_status 500
+      # Stripe will ping all endpoints so maybe we get another instance's ID
+      # and that's why the command will not valid.
+      # We should not send 500 status response in this case, because the request was valid,
+      # but it was not relevant in the current instance.
+
+      assign log_level = 'WARNING'
+      if object.errors.transaction_id contains 'not exist'
+        response_status 202
+      else
+        assign log_level = 'ERROR'
+        response_status 500
+      endif
+
+      # Log the problem in the correct level.
+      assign log_type = log_level | append: ': payments_stripe/checkout_session_completed_webhook object'
+      log object, type: log_type
+
       echo object
     endif
   else
