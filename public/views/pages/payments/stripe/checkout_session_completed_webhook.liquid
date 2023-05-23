@@ -10,7 +10,8 @@ layout: null
       assign requester = null | hash_merge: id: 'stripe_webhook_request'
     endunless
 
-    function object = 'modules/payments_stripe/commands/checkout_session/complete', object: context.post_params, requester: requester, request_url: context.location.url
+    function object = 'modules/payments_stripe/commands/stripe_checkout/complete', object: context.post_params, requester: requester, request_url: context.location.url
+
     if object.valid
       echo object
     else

@@ -1,7 +1,0 @@
-{% liquid
-  graphql r = 'modules/payments_stripe/checkout_sessions/create', args: object
-  assign object = r['record']
-  hash_assign object['valid'] = true
-
-  return object
-%}

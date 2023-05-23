@@ -1,8 +1,0 @@
-name: checkout_session
-properties:
-- name: external_id
-  type: string
-- name: status
-  type: string
-- name: data
-  type: text
