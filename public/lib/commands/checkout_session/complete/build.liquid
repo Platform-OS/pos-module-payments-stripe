@@ -1,6 +1,0 @@
-{% liquid
-  assign webhook_data = object | parse_json
-  assign empty_object = '{}' | parse_json
-  assign object = webhook_data | default: empty_object
-  return object
-%}
