@@ -12,7 +12,7 @@
     assign input = null | hash_merge: payment_status: object.status
     function object = 'modules/payments/commands/transactions/update_status', object: input, transaction: transaction, requester_id: requester.id
   else
-    log object, type: "ERROR"
+    log object, type: "ERROR: modules/payments_stripe/commands/stripe_checkout/complete invalid"
   endif
 
   return object
