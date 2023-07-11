@@ -28,9 +28,11 @@ layout: null
         response_status 500
       endif
 
-      # Log the problem in the correct level.
-      assign log_type = log_level | append: ': payments_stripe/checkout_session_completed_webhook object'
-      log object, type: log_type
+      if log_level != 'WARNING' or object.data.object.success_url contains context.location.host
+        # Log the problem only if payment is from this host.
+        assign log_type = log_level | append: ': payments_stripe/checkout_session_completed_webhook object'
+        log object, type: log_type
+      endif
 
       echo object
     endif
