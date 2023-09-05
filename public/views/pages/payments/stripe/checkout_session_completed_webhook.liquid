@@ -17,7 +17,7 @@ layout: null
     else
       # Stripe will ping all endpoints so maybe we get another instance's ID
       # and that's why the command will not valid.
-      # We should not send 500 status response in this case, because the request was valid,
+      # We should not send 500 status response in this case, because the request was valid
       # but it was not relevant in the current instance.
 
       assign log_level = 'WARNING'
