@@ -1,0 +1,39 @@
+{% liquid
+  assign completed_statuses = 'succeeded,expired,failed' | split: ','
+  assign transaction_status_short = transaction.status.name | split: '.' | last
+  if completed_statuses contains transaction_status_short
+    assign result = null | hash_merge: valid: true
+    return result
+  endif
+
+  function stripe_session = 'modules/payments_stripe/commands/stripe_checkout/retrieve', transaction: transaction
+  # TODO: check if ach payment is pending, if yes raise an error
+  if stripe_session.valid
+    case stripe_session.status
+    when 'complete'
+      case stripe_session.payment_status
+      when 'paid'
+        assign payment_status = 'app.statuses.transactions.succeeded'
+      when 'unpaid'
+        assign payment_status = 'app.statuses.transactions.failed'
+      else
+        log stripe_session, type: "ERROR: modules/payments_stripe/commands/stripe_checkout/check_and_update_status unknown payment_status"
+      endcase
+    when 'expired', 'open'
+      assign payment_status = 'app.statuses.transactions.expired'
+    else
+      log stripe_session, type: "ERROR: modules/payments_stripe/commands/stripe_checkout/check_and_update_status unknown status"
+      return null | hash_merge: valid: false
+    endcase
+
+    assign input = null | hash_merge: payment_status: payment_status
+    function transaction_object = 'modules/payments/commands/transactions/update_status', object: input, transaction: transaction, requester_id: requester_id
+    if stripe_session.status == 'open'
+      function _expire_object = 'modules/payments_stripe/commands/stripe_checkout/expire', transaction: transaction
+    endif
+  else
+    log object, type: "ERROR: modules/payments_stripe/commands/stripe_checkout/check_and_update_status invalid"
+  endif
+
+  return transaction_object
+%}
