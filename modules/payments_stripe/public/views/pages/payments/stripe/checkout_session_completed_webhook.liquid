@@ -5,7 +5,7 @@ layout: null
 {% liquid
   function valid_webhook = 'modules/payments_stripe/commands/webhooks/is_valid', webhook_path: '/payments/stripe/checkout_session_completed_webhook', context: context
   if valid_webhook
-    assign requester_id = context.current_user | default: 'stripe_webhook_request'
+    assign requester_id = context.current_user.id | default: 'stripe_webhook_request'
     function object = 'modules/payments_stripe/commands/stripe_checkout/complete', object: context.post_params, requester_id: requester_id, request_url: context.location.url
 
     if object.valid
