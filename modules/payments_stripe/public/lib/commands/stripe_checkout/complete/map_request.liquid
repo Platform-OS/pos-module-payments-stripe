@@ -12,11 +12,11 @@
         hash_assign data['status'] = 'pending'
 
         if response.payment_status == 'paid'
-          hash_assign data['status'] = 'success'
+          hash_assign data['status'] = 'succeeded'
         endif
 
       when 'checkout.session.async_payment_succeeded'
-        hash_assign data['status'] = 'success'
+        hash_assign data['status'] = 'succeeded'
 
       when 'checkout.session.async_payment_failed'
         hash_assign data['status'] = 'failed'
