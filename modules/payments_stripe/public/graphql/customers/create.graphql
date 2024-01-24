@@ -1,0 +1,28 @@
+mutation create(
+  $gateway_id: String!
+  $user_id: String!
+  $email: String
+  $name: String
+) {
+  record: record_create(
+    record: {
+      table: "modules/payments_stripe/customer"
+      properties: [
+        { name: "gateway_id", value: $gateway_id }
+        { name: "user_id", value: $user_id }
+        { name: "email", value: $email }
+        { name: "name", value: $name }
+      ]
+    }
+  ) {
+    table
+    created_at
+    updated_at
+
+    id
+    gateway_id: property(name: "gateway_id")
+    user_id: property(name: "user_id")
+    email: property(name: "email")
+    name: property(name: "name")
+  }
+}
