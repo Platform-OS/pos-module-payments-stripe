@@ -1,10 +1,9 @@
 name: customer
 properties:
-- name: gateway_id
+- name: customer_id
   type: string
-- name: user_id
+- name: reference_id
   type: string
-  belongs_to: user
 - name: email
   type: string
 - name: name

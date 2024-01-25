@@ -1,8 +1,8 @@
 query (
   $email: String
   $name: String
-  $gateway_id: String
-  $user_id: String
+  $customer_id: String
+  $reference_id: String
 ) {
   records(
     per_page: 1
@@ -11,8 +11,8 @@ query (
       properties: [
         { name: "email", value: $email }
         { name: "name", contains: $name }
-        { name: "gateway_id", value: $gateway_id }
-        { name: "user_id", value: $user_id }
+        { name: "customer_id", value: $customer_id }
+        { name: "reference_id", value: $reference_id }
       ]
     }
     sort: { created_at: { order: DESC } }
@@ -27,8 +27,8 @@ query (
       updated_at
 
       id
-      gateway_id: property(name: "gateway_id")
-      user_id: property(name: "user_id")
+      customer_id: property(name: "customer_id")
+      reference_id: property(name: "reference_id")
       email: property(name: "email")
       name: property(name: "name")
     }

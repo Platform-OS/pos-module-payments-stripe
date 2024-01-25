@@ -4,7 +4,7 @@
     return null
   endif
 
-  assign params = '{}' | parse_json | hash_merge: id: id
+  assign params = null | hash_merge: id: id
 
   graphql g  = 'modules/payments_stripe/customers/search', args: params, limit: 1
   if g.records == blank

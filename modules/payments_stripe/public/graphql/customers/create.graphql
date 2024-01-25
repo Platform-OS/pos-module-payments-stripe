@@ -1,6 +1,6 @@
 mutation create(
-  $gateway_id: String!
-  $user_id: String!
+  $customer_id: String!
+  $reference_id: String!
   $email: String
   $name: String
 ) {
@@ -8,8 +8,8 @@ mutation create(
     record: {
       table: "modules/payments_stripe/customer"
       properties: [
-        { name: "gateway_id", value: $gateway_id }
-        { name: "user_id", value: $user_id }
+        { name: "customer_id", value: $customer_id }
+        { name: "reference_id", value: $reference_id }
         { name: "email", value: $email }
         { name: "name", value: $name }
       ]
@@ -20,8 +20,8 @@ mutation create(
     updated_at
 
     id
-    gateway_id: property(name: "gateway_id")
-    user_id: property(name: "user_id")
+    customer_id: property(name: "customer_id")
+    reference_id: property(name: "reference_id")
     email: property(name: "email")
     name: property(name: "name")
   }
