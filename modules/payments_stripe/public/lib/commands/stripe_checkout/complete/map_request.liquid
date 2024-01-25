@@ -6,6 +6,10 @@
 
     hash_assign data['valid'] = true
     hash_assign data['external_id'] = response.client_reference_id
+    function transaction = 'modules/payments/queries/transactions/find', id: data.external_id
+    hash_assign data['transaction'] = transaction
+    assign customer = nil | hash_merge: gateway_id: response.customer, email: response.customer_details.email, name: response.customer_details.name, user_id: transaction.user_id
+    hash_assign data['customer'] = customer
 
     case object.name
       when 'checkout.session.completed'
