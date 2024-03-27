@@ -4,7 +4,7 @@ Supports Stripe Checkout. Name of the gateway: `stripe`
 
 ## Installation
 
-        git clone git@github.com:Platform-OS/pos-module-payments-stripe.git modules/payments_stripe
+        pos-cli modules install payments_stripe
 
 ## Usage
 
