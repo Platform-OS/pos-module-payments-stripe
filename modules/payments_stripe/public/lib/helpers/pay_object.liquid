@@ -1,12 +1,36 @@
+
+{% comment %}
+Possible payment_mode:
+  - charge - https://docs.stripe.com/api/charges/create Charges given payment method right away.
+    Used for payment methods added without Stripe Checkout flow
+  - payment_intent - https://docs.stripe.com/api/payment_intents/create Charges given payment method right away.
+    Used for payment methods added with Stripe Checkout flow
+  - checkout - https://docs.stripe.com/payments/checkout/how-checkout-works uses Stripe Checkout flow to charge user.
+{% endcomment %}
+
 {% liquid
-  function object = 'modules/payments_stripe/commands/stripe_checkout/create', object: gateway_params, transaction: transaction
+  case payment_mode
+  when 'charge'
+    function object = 'modules/payments_stripe/commands/stripe_charge/create', object: gateway_params, transaction: transaction
+    assign gateway_transaction_id = object.id
+  when 'payment_intent'
+    function object = 'modules/payments_stripe/commands/stripe_payment_intent/create', object: gateway_params, transaction: transaction
+    assign gateway_transaction_id = object.id
+  when 'checkout'
+    function object = 'modules/payments_stripe/commands/stripe_checkout/create', object: gateway_params, transaction: transaction
+    assign gateway_transaction_id = object.payment_intent | default: object.setup_intent
+  # backwards compatibility
+  when null
+    function object = 'modules/payments_stripe/commands/stripe_checkout/create', object: gateway_params, transaction: transaction
+    assign gateway_transaction_id = object.payment_intent | default: object.setup_intent
+  endcase
   if object.valid
-    assign transaction_object = null | hash_merge: id: transaction.id, gateway_transaction_id: object.id
+    assign transaction_object = null | hash_merge: id: transaction.id, gateway_transaction_id: gateway_transaction_id
+
     function transaction = 'modules/payments/commands/transactions/update_gateway_transaction_id', object: transaction_object
-    if transaction.valid
-    else
+    unless transaction.valid
       log object, type: 'ERROR: modules/payments_stripe pay_object'
-    endif
+    endunless
   else
     log object, type: 'ERROR: modules/payments_stripe pay_object'
   endif

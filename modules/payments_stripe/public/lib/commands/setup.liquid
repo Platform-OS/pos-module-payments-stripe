@@ -1,10 +1,15 @@
 {% liquid
   function stripe_sk_key = 'modules/core/lib/queries/variable/find', name: 'stripe_sk_key'
   if stripe_sk_key
-    assign stripe_events = 'checkout.session.completed,checkout.session.async_payment_succeeded,checkout.session.async_payment_failed' | split: ','
-    function res = 'modules/payments_stripe/commands/webhook_endpoints/create', stripe_events: stripe_events, path: '/payments/stripe/checkout_session_completed_webhook', connect: false, host: context.location.host
+    assign stripe_events = 'checkout.session.expired,charge.succeeded,charge.pending,setup_intent.succeeded' | split: ','
+    function res = 'modules/payments_stripe/commands/webhook_endpoints/create', stripe_events: stripe_events, path: '/payments/stripe/webhooks', connect: false, host: context.location.host
     if res.valid != true
       log res, type: 'ERROR: modules/payments_stripe failed to setup webhook'
+    endif
+    if with_connect
+      assign stripe_events = 'account.updated,payout.paid' | split: ','
+
+      function res = 'modules/payments_stripe/commands/webhook_endpoints/create', stripe_events: stripe_events, path: '/payments/stripe/webhooks_connect', connect: true, host: context.location.host
     endif
     return res.valid
   else
