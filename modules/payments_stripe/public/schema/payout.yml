@@ -1,6 +1,8 @@
 ---
 name: payout
 properties:
+- name: reference_id
+  type: string
 - name: payout_id
   type: string
 - name: amount_cents
