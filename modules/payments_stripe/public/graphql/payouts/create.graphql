@@ -31,7 +31,6 @@ mutation create(
     }
   ) {
     table
-    created_at
     updated_at
 
     id

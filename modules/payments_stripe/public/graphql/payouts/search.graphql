@@ -35,7 +35,6 @@ query (
     has_next_page
     results {
       table
-      created_at
       updated_at
 
       id
