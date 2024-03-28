@@ -5,6 +5,7 @@ mutation create(
   $currency: String
   $connected_account_id: String
   $gateway_connected_account_id: String
+  $created_at: String
   $paid_at: String
   $failed_at: String
   $state: String
@@ -22,6 +23,7 @@ mutation create(
           name: "gateway_connected_account_id"
           value: $gateway_connected_account_id
         }
+        { name: "created_at", value: $created_at }
         { name: "paid_at", value: $paid_at }
         { name: "failed_at", value: $failed_at }
         { name: "state", value: $state }
@@ -39,6 +41,7 @@ mutation create(
     currency: property(name: "currency")
     connected_account_id: property(name: "connected_account_id")
     gateway_connected_account_id: property(name: "gateway_connected_account_id")
+    created_at: property(name: "created_at")
     paid_at: property(name: "paid_at")
     failed_at: property(name: "failed_at")
     state: property(name: "state")

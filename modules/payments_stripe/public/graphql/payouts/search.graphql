@@ -47,6 +47,7 @@ query (
       gateway_connected_account_id: property(
         name: "gateway_connected_account_id"
       )
+      created_at: property(name: "created_at")
       paid_at: property(name: "paid_at")
       failed_at: property(name: "failed_at")
       state: property(name: "state")
