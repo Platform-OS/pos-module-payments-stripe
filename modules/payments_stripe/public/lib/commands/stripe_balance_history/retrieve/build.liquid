@@ -1,0 +1,10 @@
+{% capture url %}
+https://api.stripe.com/v1/balance/history?payout={{ payout.payout_id }}&limit=1000{%- if starting_after -%}&starting_after={{ starting_after }}{%- endif -%}
+{% endcapture %}
+{% liquid
+  assign expand = 'data.source.source_transfer' | split: ','
+  assign payload = null | hash_merge: expand: expand
+  assign data = null | hash_merge: payload: payload, request_type: 'GET', to: url, connected_account_id: payout.gateway_connected_account_id
+
+  return data
+%}

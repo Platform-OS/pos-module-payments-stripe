@@ -1,0 +1,6 @@
+{% capture url %}
+https://api.stripe.com//v1/accounts/{{ account_id }}/login_links
+{% endcapture %}
+{% liquid
+  return nil | hash_merge: payload: null, request_type: 'POST', to: url
+%}

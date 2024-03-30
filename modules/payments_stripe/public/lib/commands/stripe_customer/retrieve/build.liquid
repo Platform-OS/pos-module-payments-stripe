@@ -1,0 +1,8 @@
+{% capture url %}
+https://api.stripe.com/v1/customers/{{ customer_id }}
+{% endcapture %}
+{% liquid
+  assign data = null | hash_merge: payload: null, request_type: 'GET', to: url
+
+  return data
+%}

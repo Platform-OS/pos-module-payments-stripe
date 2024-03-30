@@ -13,11 +13,14 @@ callback: >
 request_headers: >
   {%- function stripe_sk_key = 'modules/core/lib/queries/variable/find', name: 'stripe_sk_key' -%}
   {
-    {%- if data.indempotency_key -%}
-      "Idempotency-Key": "{{ data.indempotency_key }}",
+    {%- if data.idempotency_key or data.payload.idempotency_key -%}
+      "Idempotency-Key": "{{ data.payload.idempotency_key | default: data.idempotency_key }}",
     {%- endif -%}
     {%- if data.payload -%}
       "Content-Type": "application/x-www-form-urlencoded",
+    {%- endif -%}
+    {%- if data.connected_account_id -%}
+      "Stripe-Account": "{{ data.connected_account_id }}",
     {%- endif -%}
     "Authorization": "Bearer {{ stripe_sk_key }}"
   }

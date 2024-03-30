@@ -6,7 +6,7 @@
       hash_assign data['errors'] = response.error
       hash_assign data['valid'] = false
     else
-      assign data = data | hash_merge: id: response.id, url: response.url
+      assign data = data | hash_merge: id: response.id, url: response.url, payment_intent: response.payment_intent
       hash_assign data['valid'] = true
     endif
   else
