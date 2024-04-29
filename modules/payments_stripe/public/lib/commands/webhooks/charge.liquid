@@ -20,7 +20,7 @@
   elsif transaction and transaction.c__status == payment_status
     hash_assign response['status'] = 202
     hash_assign response['body'] = "Transaction already completed"
-  elsif transaction and params.data.object.metadata.host contains host
+  elsif transaction and params.data.object.metadata.host contains host or params.data.object.metadata.host == blank
     function object = 'modules/payments_stripe/commands/stripe_charge/handle_webhook', params: params, requester_id: requester_id, request_url: request_url, transaction: transaction
     hash_assign response['body'] = object
   endif
