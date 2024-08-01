@@ -5,7 +5,7 @@ layout: null
 {% liquid
   function valid_webhook = 'modules/payments_stripe/commands/webhooks/is_valid', webhook_path: '/payments/stripe/checkout_session_completed_webhook', context: context
   if valid_webhook
-    unless context.post_params.success_url contains context.location.host
+    unless context.params.data.object.success_url contains context.location.host
       echo "Transaction from different host"
       response_status 202
     endunless
