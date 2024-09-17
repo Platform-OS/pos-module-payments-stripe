@@ -57,6 +57,12 @@ method: post
 ---
 {% liquid
   assign total = 0
+  
+  comment
+    DO NOT USE THIS CODE IN PRODUCTION - Never trust user input, the selected line items and their details, like price
+    should be fetched server side from the database. This code is for demonstration purposes only.
+  endcomment
+
   for item in params.line_items
     assign line_price = item.price_data.unit_amount | times: item.quantity
     assign total = total | plus: line_price
