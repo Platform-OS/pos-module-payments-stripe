@@ -54,6 +54,7 @@ query (
       reverse_transfer: property_boolean(name: "reverse_transfer")
       reason: property(name: "reason")
       status: property(name: "status")
+      gateway_errors: property(name: "gateway_errors")
     }
   }
 }

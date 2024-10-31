@@ -6,7 +6,7 @@
 {%- parse_json data -%}
   {
     "amount": {{ object.amount | json }},
-    {% if transaction.gateway_transaction_id contains 'ch_' %}
+    {% if transaction.gateway_transaction_id contains 'ch_' or transaction.gateway_transaction_id contains 'py_' %}
       "charge": {{ transaction.gateway_transaction_id | json }},
     {% else %}
       "payment_intent": {{ transaction.gateway_transaction_id | json }},

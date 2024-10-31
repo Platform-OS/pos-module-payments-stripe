@@ -1,6 +1,6 @@
 {%- parse_json object -%}
   {
-    "amount": {{ object.amount | json }},
+    "amount": {{ object.amount | round | json }},
     "transaction_id": {{ transaction.id | json }},
     "refund_id": {{ object.refund_id | json }},
     "charge": {{ object.charge | json }},

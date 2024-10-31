@@ -6,5 +6,6 @@
   }
 {%- endparse_json -%}
 {% liquid
+  hash_assign object['gateway_errors'] = params.errors | json
   return object
 %}

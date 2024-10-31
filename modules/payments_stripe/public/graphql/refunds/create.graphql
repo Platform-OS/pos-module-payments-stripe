@@ -8,6 +8,7 @@ mutation create(
   $reverse_transfer: Boolean
   $reason: String
   $status: String
+  $gateway_errors: String
 ) {
   record: record_create(
     record: {
@@ -18,10 +19,14 @@ mutation create(
         { name: "refund_id", value: $refund_id }
         { name: "charge", value: $charge }
         { name: "payment_intent", value: $payment_intent }
-        { name: "refund_application_fee", value_boolean: $refund_application_fee }
+        {
+          name: "refund_application_fee"
+          value_boolean: $refund_application_fee
+        }
         { name: "reverse_transfer", value_boolean: $reverse_transfer }
         { name: "reason", value: $reason }
         { name: "status", value: $status }
+        { name: "gateway_errors", value: $gateway_errors }
       ]
     }
   ) {
@@ -39,5 +44,6 @@ mutation create(
     reverse_transfer: property_boolean(name: "reverse_transfer")
     reason: property(name: "reason")
     status: property(name: "status")
+    gateway_errors: property(name: "gateway_errors")
   }
 }
