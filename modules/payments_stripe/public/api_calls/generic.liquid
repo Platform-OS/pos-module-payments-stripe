@@ -27,6 +27,7 @@ request_headers: >
 ---
 {% liquid
   assign _ = data.payload | hash_delete_key: 'connected_account_id'
+  assign _ = data.payload | hash_delete_key: 'idempotency_key'
 
   if data.payload
     assign encoded = data.payload | www_form_encode_rc
