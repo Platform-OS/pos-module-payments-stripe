@@ -1,10 +1,13 @@
 {%- liquid
-  assign params = params | hash_merge: params
+  assign page = page | to_positive_integer: 1
+  assign limit = limit | to_positive_integer: 20
+  assign email = email | default: null
+  assign name = name | default: null
+  assign id = id | default: null
+  assign customer_id = customer_id | default: params.customer_id | default: null
+  assign reference_id = reference_id | default: params.reference_id | default: null
 
-  hash_assign params['page'] = params.page | to_positive_integer: 1
-  hash_assign params['limit'] = params.limit | to_positive_integer: 20
-
-  graphql g = "modules/payments_stripe/customers/search", args: params
+  graphql g = "modules/payments_stripe/customers/search", id: id, page: page, limit: limit, email: email, name: name, customer_id: customer_id, reference_id: reference_id
   if g.records == blank
     log params, type: "QUERY ERROR - PARAMS"
     log g, type: "QUERY ERROR"

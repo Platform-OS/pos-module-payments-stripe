@@ -1,0 +1,16 @@
+{%- parse_json object -%}
+  {
+    "amount": {{ object.amount | round | json }},
+    "transaction_id": {{ transaction.id | json }},
+    "refund_id": {{ object.refund_id | json }},
+    "charge": {{ object.charge | json }},
+    "payment_intent": {{ object.payment_intent | json }},
+    "refund_application_fee": {{ object.refund_application_fee | json }},
+    "reverse_transfer": {{ object.reverse_transfer | json }},
+    "reason": {{ object.reason | json }},
+    "status": {{ object.status | default: 'new' | json }}
+  }
+{%- endparse_json -%}
+{% liquid
+  return object
+%}

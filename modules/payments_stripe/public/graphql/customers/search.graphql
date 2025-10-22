@@ -1,13 +1,18 @@
 query (
+  $id: ID
   $email: String
   $name: String
   $customer_id: String
   $reference_id: String
+  $page: Int = 1
+  $limit: Int = 20
 ) {
   records(
-    per_page: 1
+    page: $page
+    per_page: $limit
     filter: {
       table: { value: "modules/payments_stripe/customer" }
+      id: { value: $id }
       properties: [
         { name: "email", value: $email }
         { name: "name", contains: $name }
