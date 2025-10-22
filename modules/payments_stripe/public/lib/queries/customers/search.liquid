@@ -4,8 +4,8 @@
   assign email = email | default: null
   assign name = name | default: null
   assign id = id | default: null
-  assign customer_id = customer_id | default: null
-  assign reference_id = reference_id | default: null
+  assign customer_id = customer_id | default: params.customer_id | default: null
+  assign reference_id = reference_id | default: params.reference_id | default: null
 
   graphql g = "modules/payments_stripe/customers/search", id: id, page: page, limit: limit, email: email, name: name, customer_id: customer_id, reference_id: reference_id
   if g.records == blank
