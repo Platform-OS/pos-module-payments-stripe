@@ -12,3 +12,5 @@ properties:
   type: string
 - name: secret
   type: string
+- name: stripe_account_name
+  type: string

@@ -3,6 +3,7 @@
     "account": {{ account_id | json }},
     "refresh_url": {{ refresh_url | default: return_url | json }},
     "return_url": {{ return_url | json }},
+    "stripe_account_name": {{ stripe_account_name | json }},
     "type": "account_onboarding"
   }
 {%- endparse_json -%}

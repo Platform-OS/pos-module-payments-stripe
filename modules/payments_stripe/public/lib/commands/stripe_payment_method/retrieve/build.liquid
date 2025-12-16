@@ -2,7 +2,8 @@
 https://api.stripe.com/v1/customers/{{ customer_id }}/payment_methods/{{ payment_method_id }}
 {% endcapture %}
 {% liquid
-  assign data = null | hash_merge: payload: null, request_type: 'GET', to: url
+  assign payload = null | hash_merge: stripe_account_name: stripe_account_name
+  assign data = null | hash_merge: payload: payload, request_type: 'GET', to: url
 
   return data
 %}

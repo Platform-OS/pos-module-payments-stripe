@@ -3,6 +3,7 @@ query (
   $reference_id: String
   $gateway_id: String
   $c__status: String
+  $stripe_account_name: String
   $page: Int = 1
   $limit: Int = 20
 ) {
@@ -16,6 +17,7 @@ query (
         { name: "reference_id", value: $reference_id }
         { name: "gateway_id", value: $gateway_id }
         { name: "c__status", value: $c__status }
+        { name: "stripe_account_name", value: $stripe_account_name }
       ]
     }
     sort: { created_at: { order: DESC } }
@@ -33,6 +35,7 @@ query (
       reference_id: property(name: "reference_id")
       gateway_id: property(name: "gateway_id")
       c__status: property(name: "c__status")
+      stripe_account_name: property(name: "stripe_account_name")
     }
   }
 }

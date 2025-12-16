@@ -1,5 +1,5 @@
 {% liquid
-  function updated_object = 'modules/payments_stripe/commands/stripe_connected_accounts/get_onboarding_link/build', account_id: object.account_id, refresh_url: refresh_url, return_url: return_url
+  function updated_object = 'modules/payments_stripe/commands/stripe_connected_accounts/get_onboarding_link/build', account_id: object.account_id, refresh_url: refresh_url, return_url: return_url, stripe_account_name: object.stripe_account_name
   function updated_object = 'modules/payments_stripe/commands/stripe_connected_accounts/get_onboarding_link/check', object: updated_object
 
   if updated_object.valid

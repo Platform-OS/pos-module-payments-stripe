@@ -1,5 +1,6 @@
 {%- parse_json payload -%}
   {
+    "stripe_account_name": {{ metadata.stripe_account_name | json }},
     "country": "US",
     "type": "express",
     "capabilities": {

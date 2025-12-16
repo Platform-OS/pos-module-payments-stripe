@@ -8,3 +8,5 @@ properties:
   type: string
 - name: name
   type: string
+- name: stripe_account_name
+  type: string

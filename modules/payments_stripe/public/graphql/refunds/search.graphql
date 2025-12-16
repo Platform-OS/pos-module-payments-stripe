@@ -9,6 +9,7 @@ query (
   $reverse_transfer: Boolean
   $reason: String
   $status: String
+  $stripe_account_name: String
   $page: Int = 1
   $limit: Int = 20
 ) {
@@ -30,6 +31,7 @@ query (
         }
         { name: "reverse_transfer", value_boolean: $reverse_transfer }
         { name: "reason", value: $reason }
+        { name: "stripe_account_name", value: $stripe_account_name }
         { name: "status", value: $status }
       ]
     }
@@ -54,6 +56,7 @@ query (
       reverse_transfer: property_boolean(name: "reverse_transfer")
       reason: property(name: "reason")
       status: property(name: "status")
+      stripe_account_name: property(name: "stripe_account_name")
     }
   }
 }

@@ -4,7 +4,7 @@
     return null
   endif
 
-  graphql g  = 'modules/payments_stripe/connected_accounts/search', reference_id: reference_id, limit: 1
+  graphql g  = 'modules/payments_stripe/connected_accounts/search', reference_id: reference_id, limit: 1, stripe_account_name: stripe_account_name
   if g.records == blank
     log reference_id, type: "QUERY ERROR - PARAMS"
     log g, type: "QUERY ERROR"

@@ -11,7 +11,13 @@ callback: >
     endif
   %}
 request_headers: >
-  {%- function stripe_sk_key = 'modules/core/lib/queries/variable/find', name: 'stripe_sk_key' -%}
+  {% assign stripe_account_name = data.stripe_account_name | default: data.payload.stripe_account_name %}
+  {% if stripe_account_name != blank %}
+    {% assign stripe_key_name = 'stripe_sk_key' | append: '_' | append: stripe_account_name %}
+  {% else %}
+    {% assign stripe_key_name = 'stripe_sk_key' %}
+  {% endif %}
+  {%- function stripe_sk_key = 'modules/core/lib/queries/variable/find', name: stripe_key_name -%}
   {
     {%- if data.idempotency_key or data.payload.idempotency_key -%}
       "Idempotency-Key": "{{ data.payload.idempotency_key | default: data.idempotency_key }}",
@@ -28,6 +34,7 @@ request_headers: >
 {% liquid
   assign _ = data.payload | hash_delete_key: 'connected_account_id'
   assign _ = data.payload | hash_delete_key: 'idempotency_key'
+  assign _ = data.payload | hash_delete_key: 'stripe_account_name'
 
   if data.payload
     assign encoded = data.payload | www_form_encode_rc
