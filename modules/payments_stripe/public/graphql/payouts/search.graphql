@@ -6,6 +6,7 @@ query (
   $connected_account_id: String
   $gateway_connected_account_id: String
   $state: String
+  $stripe_account_name: String
   $page: Int = 1
   $limit: Int = 20
 ) {
@@ -25,6 +26,7 @@ query (
           value: $gateway_connected_account_id
         }
         { name: "state", value: $state }
+        { name: "stripe_account_name", value: $stripe_account_name }
       ]
     }
     sort: { created_at: { order: DESC } }
@@ -50,6 +52,7 @@ query (
       paid_at: property(name: "paid_at")
       failed_at: property(name: "failed_at")
       state: property(name: "state")
+      stripe_account_name: property(name: "stripe_account_name")
     }
   }
 }

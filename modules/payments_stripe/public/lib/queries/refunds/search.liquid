@@ -7,8 +7,9 @@
   assign charge = charge | default: null
   assign payment_intent = payment_intent | default: null
   assign status = status | default: null
+  assign stripe_account_name = stripe_account_name | default: null
 
-  graphql g = "modules/payments_stripe/refunds/search", id: id, page: page, limit: limit, transaction_id: transaction_id, refund_id: refund_id, charge: charge, payment_intent: payment_intent, status: status
+  graphql g = "modules/payments_stripe/refunds/search", id: id, page: page, limit: limit, transaction_id: transaction_id, refund_id: refund_id, charge: charge, payment_intent: payment_intent, status: status, stripe_account_name: stripe_account_name
   if g.records == blank
     log params, type: "QUERY ERROR - PARAMS"
     log g, type: "QUERY ERROR"

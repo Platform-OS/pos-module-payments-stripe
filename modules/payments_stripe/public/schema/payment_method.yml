@@ -21,3 +21,5 @@ properties:
   type: string
 - name: routing_number
   type: string
+- name: stripe_account_name
+  type: string

@@ -9,6 +9,7 @@ mutation create(
   $exp_month: Int
   $bank_name: String
   $routing_number: String
+  $stripe_account_name: String
 ) {
   record: record_create(
     record: {
@@ -24,6 +25,7 @@ mutation create(
         { name: "exp_month", value_int: $exp_month }
         { name: "bank_name", value: $bank_name }
         { name: "routing_number", value: $routing_number }
+        { name: "stripe_account_name", value: $stripe_account_name }
       ]
     }
   ) {
@@ -42,5 +44,6 @@ mutation create(
     exp_month: property_int(name: "exp_month")
     bank_name: property(name: "bank_name")
     routing_number: property(name: "routing_number")
+    stripe_account_name: property(name: "stripe_account_name")
   }
 }

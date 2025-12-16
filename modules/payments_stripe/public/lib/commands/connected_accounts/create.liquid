@@ -1,5 +1,5 @@
 {% liquid
-  function connected_account = 'modules/payments_stripe/queries/connected_accounts/find_by_reference_id', reference_id: object.reference_id
+  function connected_account = 'modules/payments_stripe/queries/connected_accounts/find_by_reference_id', reference_id: object.reference_id, stripe_account_name: object.stripe_account_name
   if connected_account
     return connected_account
   endif

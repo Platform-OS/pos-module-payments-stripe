@@ -23,5 +23,6 @@ mutation update(
     reference_id: property(name: "reference_id")
     gateway_id: property(name: "gateway_id")
     c__status: property(name: "c__status")
+    stripe_account_name: property(name: "stripe_account_name")
   }
 }

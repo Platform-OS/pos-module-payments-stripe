@@ -3,6 +3,7 @@ mutation create(
   $reference_id: String!
   $state: String
   $last_errors: String
+  $stripe_account_name: String
   $data: JSONPayload
 ) {
   record: record_create(
@@ -13,6 +14,7 @@ mutation create(
         { name: "reference_id", value: $reference_id }
         { name: "state", value: $state }
         { name: "last_errors", value: $last_errors }
+        { name: "stripe_account_name", value: $stripe_account_name }
         { name: "data", value_json: $data }
       ]
     }
@@ -26,6 +28,7 @@ mutation create(
     reference_id: property(name: "reference_id")
     state: property(name: "state")
     last_errors: property(name: "last_errors")
+    stripe_account_name: property(name: "stripe_account_name")
     data: property_json(name: "data")
   }
 }

@@ -14,6 +14,7 @@
       "secret": "{{ body.secret }}",
       "livemode": "{{ body.livemode }}",
       "enabled_events": {{ events | json }},
+      "stripe_account_name": {{ stripe_account_name | json }},
       "valid": true
     }
   {%- else -%}

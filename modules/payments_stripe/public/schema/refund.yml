@@ -15,4 +15,5 @@ properties:
 - name: reason
   type: string
 - name: status
-
+- name: stripe_account_name
+  type: string

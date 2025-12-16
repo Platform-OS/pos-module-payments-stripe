@@ -10,6 +10,7 @@
       hash_assign data['valid'] = true
       hash_assign data['customer_id'] = response.id
       hash_assign data['reference_id'] = payer_id
+      hash_assign data['stripe_account_name'] = stripe_account_name
     endif
   else
     hash_assign data['valid'] = false
